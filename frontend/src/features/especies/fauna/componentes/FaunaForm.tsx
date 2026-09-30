@@ -8,7 +8,7 @@ import { Checkbox } from "../../../../shared/components/ui/Checkbox";
 import { Textarea } from "../../../../shared/components/ui/Textarea";
 import { Button } from "../../../../shared/components/ui/Button";
 import { FileInput } from "../../../../shared/components/ui/FileInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { GeneroModel } from "../../../admin/genero/GeneroType";
 import type { GrupoComercialModel } from "../../../admin/grupoComercial/GrupoComercialType";
 
@@ -35,16 +35,20 @@ export const FaunaForm = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FaunaForm>({
     resolver: zodResolver(faunaSchema),
-    values: initialValue,
-    resetOptions: {
-      keepDirtyValues: true,
-    },
+    defaultValues: initialValue,
   });
 
   const [preview, setPreview] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (initialValue) {
+      reset(initialValue);
+    }
+  }, [initialValue, reset]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -71,8 +75,7 @@ export const FaunaForm = ({
     value: String(grupo.id),
     label: grupo.nome,
   })) ?? [];
-  console.log(JSON.stringify(generoOptions));
-  console.log(JSON.stringify(initialValue?.genero));
+
   return (
     <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
       {/* Nome e Nome Científico */}

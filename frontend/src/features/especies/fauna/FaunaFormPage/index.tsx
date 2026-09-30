@@ -11,8 +11,10 @@ import type { FaunaFormData, FaunaModel, FaunaPayload } from "../FaunaType";
 const faunaModelToFormData = (fauna: FaunaModel): FaunaFormData => ({
   nome_popular: fauna.nome_popular,
   epiteto_especifico: fauna.epiteto_especifico,
-  genero: String(fauna.genero.id),
-  grupo_comercial: fauna.grupo_comercial ? String(fauna.grupo_comercial.id) : "",
+  genero: String(fauna.genero),
+  grupo_comercial: fauna.grupo_comercial
+    ? String(fauna.grupo_comercial)
+    : "",
   origem: fauna.origem,
   imagem: fauna.imagem,
   descricao: fauna.descricao,
