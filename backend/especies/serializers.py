@@ -77,16 +77,16 @@ class FaunaListSerializer(serializers.ModelSerializer):
 # ==========================================================
 # FLORA
 # ==========================================================
+class GeneroFloraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.GeneroFlora
+        fields = ('id', 'nome', 'descricao')
+
+
 class FloraSerializer(serializers.ModelSerializer):
     nome_cientifico = serializers.ReadOnlyField()
-    familia_nome = serializers.CharField(
-        source='genero.familia.nome_cientifico', read_only=True
-    )
-    genero_nome = serializers.CharField(
-        source='genero.nome_cientifico', read_only=True
-    )
-    grupo_comercial_nome = serializers.CharField(
-        source='grupo_comercial.nome', read_only=True, default=None
+    genero = serializers.CharField(
+        source='genero.nome', read_only=True, default=None
     )
     necessidade_luz_display = serializers.CharField(
         source='get_necessidade_luz_display', read_only=True
@@ -100,8 +100,8 @@ class FloraSerializer(serializers.ModelSerializer):
 
 class FloraListSerializer(serializers.ModelSerializer):
     nome_cientifico = serializers.ReadOnlyField()
-    grupo_comercial_nome = serializers.CharField(
-        source='grupo_comercial.nome', read_only=True, default=None
+    genero = serializers.CharField(
+        source='genero.nome', read_only=True, default=None
     )
     necessidade_luz_display = serializers.CharField(
         source='get_necessidade_luz_display', read_only=True
@@ -110,7 +110,7 @@ class FloraListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Flora
         fields = (
-            'id', 'nome_popular', 'nome_cientifico', 'grupo_comercial_nome',
+            'id', 'nome_popular', 'nome_cientifico',
             'imagem', 'necessidade_luz', 'necessidade_luz_display'
         )
 

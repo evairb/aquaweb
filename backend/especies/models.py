@@ -105,17 +105,11 @@ class NecessidadeLuz(models.TextChoices):
 # ==========================================================
 class OrganismoBase(models.Model):
     """Classe abstrata com campos compartilhados entre Fauna e Flora"""
-    genero = models.ForeignKey(
-        Genero, related_name='%(class)s_set', on_delete=models.PROTECT
-    )
+
     epiteto_especifico = models.CharField(
         max_length=100,
         help_text="""Segunda parte do nome científico.
         Ex: em 'Paracheirodon innesi', digite apenas 'innesi'."""
-    )
-    grupo_comercial = models.ForeignKey(
-        GrupoComercial, related_name='%(class)s_set',
-        on_delete=models.SET_NULL, null=True, blank=True
     )
     nome_popular = models.CharField(max_length=150)
     origem = models.CharField(
@@ -174,6 +168,14 @@ class OrganismoBase(models.Model):
 
 class Fauna(OrganismoBase):
     """Peixes, invertebrados e corais."""
+
+    genero = models.ForeignKey(
+        Genero, related_name='%(class)s_set', on_delete=models.PROTECT
+    )
+    grupo_comercial = models.ForeignKey(
+        GrupoComercial, related_name='%(class)s_set',
+        on_delete=models.SET_NULL, null=True, blank=True
+    )
     tipo = models.CharField(max_length=20, choices=TipoOrganismo.choices)
     temperamento = models.CharField(
         max_length=20, choices=Temperamento.choices, blank=True
@@ -205,8 +207,25 @@ class Fauna(OrganismoBase):
         verbose_name_plural = "Fauna"
 
 
+class GeneroFlora(models.Model):
+    """Ex: Paracheirodon, Corydoras, Betta. Pertence a uma Família."""
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = "Gênero Flora"
+        verbose_name_plural = "Gêneros Floras"
+        ordering = ['nome']
+
+    def __str__(self):
+        return self.nome
+
+
 class Flora(OrganismoBase):
     """Plantas aquáticas."""
+    genero = models.ForeignKey(
+        GeneroFlora, related_name='%(class)s_set', on_delete=models.PROTECT
+    )
     necessidade_luz = models.CharField(
         max_length=20, choices=NecessidadeLuz.choices
     )

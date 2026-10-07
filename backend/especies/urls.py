@@ -9,6 +9,10 @@ router.register(
     r"grupos-comerciais", views.GrupoComercialViewSet,
     basename="grupo-comercial"
 )
+router.register(
+    r"genero-flora", views.GeneroFloraViewSet,
+    basename="genero-flora"
+)
 router.register(r"fauna", views.FaunaViewSet, basename="fauna")
 router.register(r"flora", views.FloraViewSet, basename="flora")
 router.register(

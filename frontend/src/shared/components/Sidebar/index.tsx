@@ -36,6 +36,7 @@ export const Sidebar = () => {
               <NavItem to="/admin/familia">Famílias</NavItem>
               <NavItem to="/admin/genero">Gêneros</NavItem>
               <NavItem to="/admin/grupo-comercial">Grupos Comerciais</NavItem>
+              <NavItem to="/admin/genero-flora">Genero Flora</NavItem>
               <br />
               <NavItem to="/">Area Comum</NavItem>
             </>

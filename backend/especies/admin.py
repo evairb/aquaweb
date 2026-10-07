@@ -76,6 +76,13 @@ class FaunaAdmin(admin.ModelAdmin):
         return obj.nome_cientifico
 
 
+@admin.register(models.GeneroFlora)
+class GeneroFloraAdmin(admin.ModelAdmin):
+    list_display = ('nome',)
+    search_fields = ('nome',)
+    ordering = ('nome',)
+
+
 @admin.register(models.Flora)
 class FloraAdmin(admin.ModelAdmin):
     list_display = (
@@ -84,20 +91,18 @@ class FloraAdmin(admin.ModelAdmin):
     )
     list_filter = (
         'necessidade_luz', 'necessidade_co2', 'velocidade_crescimento',
-        'posicao_plantio', 'sensivel_a_herbivoros', 'genero__familia'
+        'posicao_plantio', 'sensivel_a_herbivoros', 'genero__nome'
     )
     search_fields = (
-        'nome_popular', 'epiteto_especifico', 'genero__nome_cientifico',
-        'genero__familia__nome_cientifico'
+        'nome_popular', 'epiteto_especifico'
     )
-    autocomplete_fields = ('genero', 'grupo_comercial')
+    autocomplete_fields = ('genero',)
     ordering = ('nome_popular',)
 
     fieldsets = (
         ('Taxonomia', {
             'fields': (
-                'genero', 'epiteto_especifico', 'nome_popular',
-                'grupo_comercial'
+                'genero', 'epiteto_especifico', 'nome_popular'
             )
         }),
         ('Identificação Geral', {

@@ -39,7 +39,6 @@ export const getListaFaunas = async (): Promise<FaunaListModel[]> => {
 
 export const getFauna = async (id: number): Promise<FaunaModel> => {
   const { data } = await api.get<FaunaModel>(`/fauna/${id}/`);
-  console.log("##### FAUNA RETORNADA DA API:", data);
   return data;
 };
 

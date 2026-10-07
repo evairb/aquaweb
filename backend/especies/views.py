@@ -35,6 +35,14 @@ class GrupoComercialViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdmin]
 
 
+class GeneroFloraViewSet(viewsets.ModelViewSet):
+    queryset = models.GeneroFlora.objects.all()
+    serializer_class = serializers.GeneroFloraSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["nome"]
+    permission_classes = [IsAdmin]
+
+
 # ==========================================================
 # FAUNA / FLORA
 # ==========================================================

@@ -8,7 +8,7 @@ import { Checkbox } from "../../../../shared/components/ui/Checkbox";
 import { Textarea } from "../../../../shared/components/ui/Textarea";
 import { Button } from "../../../../shared/components/ui/Button";
 import { FileInput } from "../../../../shared/components/ui/FileInput";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { GeneroModel } from "../../../admin/genero/GeneroType";
 import type { GrupoComercialModel } from "../../../admin/grupoComercial/GrupoComercialType";
 
@@ -42,21 +42,43 @@ export const FaunaForm = ({
     defaultValues: initialValue,
   });
 
-  const [preview, setPreview] = useState<string | null>(null)
+  const inicializado = useRef(false);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [imagemAtual, setImagemAtual] = useState<string | null>(null);
 
   useEffect(() => {
-    if (initialValue) {
-      reset(initialValue);
+    if (!initialValue || inicializado.current) {
+      return;
     }
+
+    reset(initialValue);
+
+    setImagemAtual(
+      typeof initialValue.imagem === "string"
+        ? initialValue.imagem
+        : null
+    );
+
+    inicializado.current = true;
   }, [initialValue, reset]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    } else {
-      setPreview(null);
+
+    if (!file) {
+      return;
     }
+
+    // Cria preview da nova imagem
+    const previewUrl = URL.createObjectURL(file);
+
+    // Mostra a nova imagem
+    setPreview(previewUrl);
+
+    // Remove a imagem antiga do estado
+    setImagemAtual(null);
   };
 
   const onFormSubmit = (
@@ -289,21 +311,36 @@ export const FaunaForm = ({
       {/* Imagem */}
       <FileInput
         label="Imagem"
-        register={register("imagem", { onChange: handleImageChange })}
+        register={register("imagem", {
+          onChange: handleImageChange,
+        })}
         error={errors.imagem}
       />
 
-      {/* Preview da nova imagem selecionada */}
+      {/* Preview da imagem */}
       {preview ? (
         <div className="mt-2">
-          <p className="text-sm text-slate-600 mb-2">Nova imagem:</p>
-          <img src={preview} alt="Preview" className="h-32 w-32 rounded-lg object-cover" />
+          <p className="text-sm text-slate-600 mb-2">
+            Nova imagem:
+          </p>
+
+          <img
+            src={preview}
+            alt="Preview"
+            className="h-32 w-32 rounded-lg object-cover"
+          />
         </div>
-      ) : initialValue?.imagem && typeof initialValue.imagem === 'string' ? (
-        /* Imagem atual (na edição) */
+      ) : imagemAtual ? (
         <div className="mt-2">
-          <p className="text-sm text-slate-600 mb-2">Imagem atual:</p>
-          <img src={initialValue.imagem} alt={initialValue.nome_popular} className="h-32 w-32 rounded-lg object-cover" />
+          <p className="text-sm text-slate-600 mb-2">
+            Imagem atual:
+          </p>
+
+          <img
+            src={imagemAtual}
+            alt={initialValue?.nome_popular}
+            className="h-32 w-32 rounded-lg object-cover"
+          />
         </div>
       ) : null}
 

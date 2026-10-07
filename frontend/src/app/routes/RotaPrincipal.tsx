@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { DashboardPage } from "./teste"
 import { RotaPrivada } from "./RotaPrivada"
 import { LoginPage } from "../../features/auth/LoginPage"
 import { RegistroPage } from "../../features/auth/RegistroPage"
@@ -15,6 +14,8 @@ import { NotAuthorizationPage } from "../pages/NotAuthorizationPage"
 import { FamiliaFormPage } from "../../features/admin/familia/FamiliaFormPage"
 import { GeneroFormPage } from "../../features/admin/genero/GeneroFormPage"
 import { GrupoComercialFormPage } from "../../features/admin/grupoComercial/GrupoComercialFormPage"
+import { GeneroFloraListPage } from "../../features/admin/generoFlora/GeneroFloraListPage"
+import { GeneroFloraFormPage } from "../../features/admin/generoFlora/GeneroFloraFormPage"
 
 export const RotaPrincipal = () => {
   return (
@@ -28,12 +29,12 @@ export const RotaPrincipal = () => {
           {/* Rotas principais (usuário final) */}
           <Route element={<LayoutPrincipal />}>
             <Route path="/">
-              <Route index element={<DashboardPage />} />
+              <Route index element={<FaunaListPage />} />
               <Route path="nao-autorizado" element={<NotAuthorizationPage />} />
 
               <Route path="fauna">
                 <Route index element={<FaunaListPage />} />
-                <Route path="novo" element={<FaunaFormPage />} /> 
+                <Route path="novo" element={<FaunaFormPage />} />
                 <Route path=":id/editar" element={<FaunaFormPage />} />
               </Route>
 
@@ -54,11 +55,17 @@ export const RotaPrincipal = () => {
                   <Route path="novo" element={<GeneroFormPage />} />
                   <Route path=":id/editar" element={<GeneroFormPage />} />
                 </Route>
-                
+
                 <Route path="grupo-comercial">
                   <Route index element={<GrupoComercialListPage />} />
                   <Route path="novo" element={<GrupoComercialFormPage />} />
                   <Route path=":id/editar" element={<GrupoComercialFormPage />} />
+                </Route>
+
+                <Route path="genero-flora">
+                  <Route index element={<GeneroFloraListPage />} />
+                  <Route path="novo" element={<GeneroFloraFormPage />} />
+                  <Route path=":id/editar" element={<GeneroFloraFormPage />} />
                 </Route>
 
               </Route>

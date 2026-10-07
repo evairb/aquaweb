@@ -16,6 +16,7 @@ export const AdminLayout = () => {
     { path: "/admin/familia", label: "Famílias" },
     { path: "/admin/genero", label: "Gêneros" },
     { path: "/admin/grupo-comercial", label: "Grupos Comerciais" },
+    { path: "/admin/genero-flora", label: "Genero Flora" },
     { path: "/", label: "Area Comum" },
   ];
 
