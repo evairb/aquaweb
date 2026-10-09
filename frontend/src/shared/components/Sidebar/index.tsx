@@ -48,6 +48,7 @@ export const Sidebar = () => {
               <NavItem to="/flora">Flora</NavItem>
               <NavItem to="/aquario">Aquários</NavItem>
               <NavItem to="/perfil">Perfil</NavItem>
+              <NavItem to="/equipamentos">Equipamentos</NavItem>
               <br />
               {isAdmin && (
                 <NavItem to="/admin">Administração</NavItem>

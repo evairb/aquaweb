@@ -49,3 +49,7 @@ export const updateFauna = async (id: number, payload: FaunaPayload): Promise<Fa
   });
   return data;
 };
+
+export const deleteFauna = async (id: number): Promise<void> => {
+  await api.delete(`/fauna/${id}/`)
+}

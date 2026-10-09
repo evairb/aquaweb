@@ -101,19 +101,11 @@ export const FaunaFormPage = () => {
   }, [id, isEditing]);
 
   const handleSubmit = async (data: FaunaFormData) => {
-    console.log("1 - FORM DATA:", data);
-
     const payload = formDataToPayload(data);
-
-    console.log("2 - PAYLOAD:", payload);
 
     try {
       if (isEditing && fauna) {
-        console.log("3 - ATUALIZANDO:", fauna.id);
-
         await updateFauna(fauna.id, payload);
-
-        console.log("4 - ATUALIZADO COM SUCESSO");
       } else {
         await createFauna(payload);
       }

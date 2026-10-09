@@ -81,7 +81,7 @@ class FaunaViewSet(viewsets.ModelViewSet):
 
 class FloraViewSet(viewsets.ModelViewSet):
     queryset = models.Flora.objects.select_related(
-        "genero__familia", "grupo_comercial"
+        "genero"
     ).all()
     filter_backends = [
         DjangoFilterBackend,
@@ -93,16 +93,13 @@ class FloraViewSet(viewsets.ModelViewSet):
         "necessidade_co2",
         "velocidade_crescimento",
         "posicao_plantio",
-        "genero",
-        "genero__familia",
-        "grupo_comercial",
+        "genero"
     ]
 
     search_fields = [
         "nome_popular",
         "epiteto_especifico",
-        "genero__nome_cientifico",
-        "genero__familia__nome_cientifico",
+        "genero__nome",
     ]
     ordering_fields = ["nome_popular", "criado_em"]
 

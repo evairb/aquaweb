@@ -16,6 +16,11 @@ import { GeneroFormPage } from "../../features/admin/genero/GeneroFormPage"
 import { GrupoComercialFormPage } from "../../features/admin/grupoComercial/GrupoComercialFormPage"
 import { GeneroFloraListPage } from "../../features/admin/generoFlora/GeneroFloraListPage"
 import { GeneroFloraFormPage } from "../../features/admin/generoFlora/GeneroFloraFormPage"
+import { FloraListPage } from "../../features/especies/flora/FloraListPage"
+import { FloraFormPage } from "../../features/especies/flora/FloraFormPage"
+import { HomeEquipamento } from "../../features/equipamentos/homeEquipamentos"
+import { FiltroListPage } from "../../features/equipamentos/filtro/FiltroListPage"
+import { FiltroFormPage } from "../../features/equipamentos/filtro/FiltroFormPage"
 
 export const RotaPrincipal = () => {
   return (
@@ -36,6 +41,22 @@ export const RotaPrincipal = () => {
                 <Route index element={<FaunaListPage />} />
                 <Route path="novo" element={<FaunaFormPage />} />
                 <Route path=":id/editar" element={<FaunaFormPage />} />
+              </Route>
+
+              <Route path="flora">
+                <Route index element={<FloraListPage />} />
+                <Route path="novo" element={<FloraFormPage />} />
+                <Route path=":id/editar" element={<FloraFormPage />} />
+              </Route>
+
+              <Route path="equipamentos">
+                <Route index element={<HomeEquipamento />} />
+
+                <Route path="filtros">
+                  <Route index element={<FiltroListPage />} />
+                  <Route path="novo" element={<FiltroFormPage />} />
+                  <Route path=":id/editar" element={<FiltroFormPage />} />
+                </Route>
               </Route>
 
             </Route>

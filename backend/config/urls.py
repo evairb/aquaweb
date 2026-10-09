@@ -8,6 +8,7 @@ urlpatterns = [
     path('api/', include('compatibilidade.urls')),
     path('api/', include('core.urls')),
     path('api/', include('especies.urls')),
+    path('api/', include('equipamentos.urls')),
 ]
 
 

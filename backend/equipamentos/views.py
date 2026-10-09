@@ -69,7 +69,7 @@ class SubstratoViewSet(viewsets.ModelViewSet):
         filters.OrderingFilter,
     ]
     filterset_fields = ["tipo_substrato", "altera_ph", "altera_gh"]
-    search_filds = ["nome", "marca", "modelo"]
+    search_fields = ["nome", "marca", "modelo"]
     ordering_fields = ["nome", "criado_em"]
 
 

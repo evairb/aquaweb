@@ -28,7 +28,7 @@ class AquecedorSerializer(serializers.ModelSerializer):
 
 
 class IluminacaoSerializer(serializers.ModelSerializer):
-    categori_display = serializers.CharField(
+    categoria_display = serializers.CharField(
         source="get_categoria_display", read_only=True
     )
 
@@ -66,7 +66,7 @@ class SubstratoSerializer(serializers.ModelSerializer):
         read_only_fields = ("criado_em", "atualizado_em")
 
 
-class BombaCirculacaoSerializer(serializers.ModelSerializer):
+class BombaCirculadoraSerializer(serializers.ModelSerializer):
     categoria_display = serializers.CharField(
         source="get_categoria_display", read_only=True
     )
@@ -87,7 +87,7 @@ class AquarioFaunaSerializer(serializers.ModelSerializer):
         model = models.AquarioFauna
         fields = (
             "id",
-            "flora",
+            "fauna",
             "nome_popular",
             "nome_cientifico",
             "quantidade",
@@ -131,11 +131,9 @@ class AquarioEquipamentoSerializer(serializers.ModelSerializer):
             "adicionado_em",
         )
 
-    def get_total_fauna(self, obj):
-        return obj.itens_fauna.count()
-
-    def get_total_flora(self, obj):
-        return obj.itens_flora.count()
+    def get_nome_equipamento(self, obj):
+        equipamento = obj.equipamento  # sua property no model
+        return equipamento.nome if equipamento else f"#{obj.equipamento_id}"
 
 
 class AquarioListSerializer(serializers.ModelSerializer):

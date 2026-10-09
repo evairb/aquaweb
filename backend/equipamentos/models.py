@@ -231,15 +231,6 @@ class AquarioFlora(models.Model):
         return f"{self.quantidade}x {self.flora.nome_popular} em {self.aquario.nome}"
 
 
-class CategoriaEquipamentoAquario(models.TextChoices):
-    FILTRO = "filtro", "Filtro"
-    AQUECEDOR = "aquecedor", "Aquecedor"
-    ILUMINACAO = "iluminacao", "Iluminação"
-    CO2 = "co2", "Sistema de CO2"
-    SUBSTRATO = "substrato", "Substrato"
-    BOMBA = "bomba", "Bomba/Circulador"
-
-
 class AquarioEquipamento(models.Model):
     """
     Equipamento instalado num aquário.
@@ -251,8 +242,9 @@ class AquarioEquipamento(models.Model):
         Aquario, related_name="itens_equipamento", on_delete=models.CASCADE
     )
     categoria = models.CharField(
-        max_length=20, choices=CategoriaEquipamentoAquario.choices
+        max_length=20, choices=CategoriaEquipamento.choices
     )
+
     equipamento_id = models.PositiveIntegerField()
     ativo = models.BooleanField(default=True)
     adicionado_em = models.DateTimeField(auto_now_add=True)
